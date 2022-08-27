@@ -1,9 +1,11 @@
 # Transfer NG Backend App
 
-## Create files and folders
-**yarn install**
+## yarn install
 This application installs all the dependecies needed for the application to run
 and alternative is npm install.
-**yarn start**
+## yarn start
 This command runs the application in production mode.
-**yarn run dev**
+## yarn run dev
+
+## POSTMAN DOCS
+https://documenter.getpostman.com/view/13255061/VUxKSUFM#intro
