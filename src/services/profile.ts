@@ -1,4 +1,4 @@
-import { FootBaller } from "../models";
+import { FootBaller, Coach } from "../models";
 
 export const profile = async (id: string, userType: string): Promise<any> => {
   if (userType === "footballer") {
@@ -7,6 +7,11 @@ export const profile = async (id: string, userType: string): Promise<any> => {
     } catch (error) {
       throw error;
     }
+  } else if (userType === "coach") {
+    try {
+      return await Coach.findOne({ _id: id }).select("-password");
+    } catch (error) {
+      throw error;
+    }
   }
-  return;
 };

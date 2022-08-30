@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
-import { handleGetProfile } from '../../controllers/footballer/profile'
-import { AuthFootballer } from '../../middleware/auth'
+import { handleGetProfile } from '../controllers/footballer/profile'
+import { AuthFootballer } from '../middleware/auth'
 
 const router: Router = express.Router();
 

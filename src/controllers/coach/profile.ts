@@ -4,13 +4,13 @@ import { profile } from '../../services/profile'
 export const handleGetProfile = async (request: Request, response: Response, next: NextFunction) => {
   try {
     const userId: string = request.user.id
-    const footballerProfile = await profile(userId, 'footballer')
+    const coachProfile = await profile(userId, 'coach')
     response.status(200).json({
        message: "Profile fetched",
-       result: footballerProfile
+       result: coachProfile
     })
   } catch (error) {
     console.log(error)
-    response.status(500).json({ error: "Failed to get footballer profile" })
+    response.status(500).json({ error: "Failed to get coach profile" })
   }
 };

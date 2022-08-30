@@ -1,3 +1,4 @@
+import Coach from "./coach"
 import FootBaller from "./footballer";
 
-export { FootBaller };
+export { Coach, FootBaller };

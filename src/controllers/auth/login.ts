@@ -1,13 +1,63 @@
 import { Request, Response } from 'express'
 import JWT from 'jsonwebtoken'
 import { vetLoginService } from '../../services'
-import { ValidateFooballerLogin } from '../../validations/auth'
+import { ValidateFooballerLogin, ValidateCoachLogin } from '../../validations/auth'
 
 interface PayloadProps {
   id: string,
   firstname: string,
   surname: string,
-  email: string
+  email: string,
+  role: string
+}
+
+export const handleLoginCoach = async (request: Request, response: Response): Promise<void> => {
+  try {
+
+    const { body } = request
+    const coachLogin = ValidateCoachLogin(body)
+
+    if (coachLogin.error) {
+      response.status(400).json({ error: coachLogin.error.message })
+      return
+    }
+
+    const dataResponse: any = await vetLoginService({
+      email: body.email,
+      password: body.password,
+      userType: 'coach'
+    })
+
+    const { isSuccess, error, status, data, messageResponse } = dataResponse
+    if (!isSuccess) {
+      response.status(status).json({ error: error })
+      return
+    }
+
+    const payload: PayloadProps = {
+      id: data._id,
+      firstname: data.firstname,
+      surname: data.surname,
+      email: data.email,
+      role: data.role
+    }
+
+    const token: string = await JWT.sign(payload,
+      process.env.SECRET as string,
+      { expiresIn: 3600 * 24 * 5 }
+    )
+    
+    response.status(status).json({
+      message: messageResponse,
+      result: {
+        userData: payload,
+        token: `Bearer ${token}`
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    response.status(500).json({ error: "Failed to login" })
+  }
 }
 
 export const handleLoginPlayer = async (request: Request, response: Response): Promise<void> => {
@@ -37,10 +87,15 @@ export const handleLoginPlayer = async (request: Request, response: Response): P
       id: data._id,
       firstname: data.firstname,
       surname: data.surname,
-      email: data.email
+      email: data.email,
+      role: data.role
     }
 
-    const token: string = await JWT.sign(payload, process.env.SECRET_ACCESS_TOKEN, { expiresIn: 3600 * 24 * 7 })
+    const token: string = await JWT.sign(payload,
+      process.env.SECRET as string,
+      { expiresIn: 3600 * 24 * 5 }
+    )
+    
     response.status(status).json({
       message: messageResponse,
       result: {

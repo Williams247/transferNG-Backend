@@ -1,4 +1,4 @@
-import { FootBaller } from "../models";
+import { FootBaller, Coach } from "../models";
 import bcrypt from "bcryptjs";
 
 interface LoginServiceProps {
@@ -15,7 +15,7 @@ export const vetLoginService = async ({ email, password, userType }: LoginServic
         return {
           isSuccess: false,
           error: "Email or password does not exist",
-          status: 401,
+          status: 404,
         };
       const doesPasswordMatch = await bcrypt.compare(password, user.password);
       if (!doesPasswordMatch)
@@ -33,6 +33,30 @@ export const vetLoginService = async ({ email, password, userType }: LoginServic
     } catch (error) {
       throw error;
     }
-    return
+  } else if (userType === 'coach') {
+    try {
+      const user = await Coach.findOne({ email: email });
+      if (!user)
+        return {
+          isSuccess: false,
+          error: "Email or password does not exist",
+          status: 404,
+        };
+      const doesPasswordMatch = await bcrypt.compare(password, user.password);
+      if (!doesPasswordMatch)
+        return {
+          isSuccess: false,
+          error: "Email or password does not exist",
+          status: 401,
+        };
+      return {
+        isSuccess: true,
+        messageResponse: "Login successful",
+        status: 200,
+        data: user,
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 };

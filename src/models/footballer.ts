@@ -8,13 +8,13 @@ const footballer = new Schema<FootBallerSchemaProps>({
     type: String,
     required: true,
     min: 3,
-    max: 30,
+    max: 80,
   },
   surname: {
     type: String,
     required: true,
     min: 3,
-    max: 30,
+    max: 80,
   },
   dob: {
     type: String,
@@ -61,6 +61,10 @@ const footballer = new Schema<FootBallerSchemaProps>({
   password: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    required: true
   },
   linkendinProfile: String,
   instagramLink: String,

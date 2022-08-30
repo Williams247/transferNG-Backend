@@ -27,3 +27,19 @@ export interface ValidateFootballerLoginProps {
   email: string;
   password: string;
 }
+
+export interface validateCoachRegProps {
+  firstname: string;
+  surname: string;
+  dob: string;
+  videoLink: string;
+  nationality: string;
+  languages: string;
+  formerTeams: string;
+  currentTeam: string;
+  keyArchievements: string;
+  currentCity: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+}

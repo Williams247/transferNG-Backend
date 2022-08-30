@@ -1,7 +1,8 @@
 import express, { Application } from 'express'
 import authCoach from './auth/coach'
 import authFootballer from './auth/footballer'
-import footballerProfile from './footballer/profile'
+import footballer from './footballer'
+import coach from './coach'
 
 const appRouter: Application = express()
 
@@ -9,6 +10,7 @@ const appRouter: Application = express()
 appRouter.use('/auth/footballer', authFootballer)
 appRouter.use('/auth/coach', authCoach)
 
-appRouter.use('/footballer', footballerProfile)
+appRouter.use('/footballer', footballer)
+appRouter.use('/coach', coach)
 
 export default appRouter;
