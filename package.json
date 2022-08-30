@@ -5,10 +5,13 @@
   "main": "server.ts",
   "author": "Williams Alex",
   "license": "MIT",
+  "engines": { "node": "16.15.1" },
   "scripts": {
     "dev": "nodemon ./src/server.ts",
-    "start": "npx tsc && node ./build/server.js",
-    "build": "npx tsc"
+    "postinstall": "tsc",
+    "start": "node ./build/server.js",
+    "build": "npx tsc",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
