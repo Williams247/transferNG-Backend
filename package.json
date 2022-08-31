@@ -5,11 +5,10 @@
   "main": "server.ts",
   "author": "Williams Alex",
   "license": "MIT",
-  "engines": { "node": "16.15.1" },
   "scripts": {
     "dev": "nodemon ./src/server.ts",
     "postinstall": "tsc",
-    "start": "node ./build/server.js",
+    "start": "npx tsc && node ./build/server.js",
     "build": "npx tsc"
   },
   "devDependencies": {
