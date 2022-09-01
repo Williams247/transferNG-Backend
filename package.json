@@ -8,8 +8,9 @@
   "scripts": {
     "dev": "nodemon ./src/server.ts",
     "postinstall": "tsc",
-    "start": "npx tsc && node ./build/server.js",
-    "build": "npx tsc"
+    "start": "node ./build/server.js",
+    "build": "tsc",
+    "generateLocal":"npx tsc"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
