@@ -39,7 +39,7 @@ app.use((request: Request, response: Response): void => {
   response.status(404).json({ error: "Route not found" });
 });
 
-const dbUri = process.env.NODE_ENV !== 'Production' ? process.env.REMOTE_URI : process.env.LOCAL_URI
+const dbUri = process.env.NODE_ENV === 'Production' ? process.env.REMOTE_URI : process.env.LOCAL_URI
 const port = process.env.PORT
 
 app.listen(port as string, async (): Promise<void> => {
