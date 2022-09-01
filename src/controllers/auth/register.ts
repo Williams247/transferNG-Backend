@@ -95,8 +95,7 @@ export const handleRegisterCoach = async (request: Request, response: Response):
     await registerCoach.save()
 
     response.status(201).json({
-      message: "Coach Registered",
-      data: urls
+      message: "Coach Registered"
     })
 
   } catch (error) {

@@ -39,10 +39,17 @@ app.use((request: Request, response: Response): void => {
   response.status(404).json({ error: "Route not found" });
 });
 
-app.listen(8000, async (): Promise<void> => {
+const dbUri = process.env.NODE_ENV !== 'Production' ? process.env.REMOTE_URI : process.env.LOCAL_URI
+const port = process.env.PORT
+
+app.listen(port as string, async (): Promise<void> => {
   try {
-    mongoose.connect("mongodb://localhost:27017/transferng");
-    console.log("Connection established");
+    mongoose.connect(dbUri as string);
+    if (process.env.NODE_ENV === 'Production') {
+      console.log("Connection established")
+    } else {
+      console.log(`App running on http://localhost:${port as string}`)
+    }
   } catch (error) {
     console.log(error);
   }
