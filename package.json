@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon ./src/server.ts",
-    "build": "tsc",
-    "generate:local":"npx tsc",
-    "start": "node ./build/server.js"
+    "build": "yarn install && tsc",
+    "start": "node ./build/server.js",
+    "generate:local":"npx tsc"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
