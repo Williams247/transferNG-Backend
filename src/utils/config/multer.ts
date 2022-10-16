@@ -1,7 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 
-module.exports = multer({
+export const multerConfig = multer({
   storage: multer.diskStorage({}),
   fileFilter: (request: any, file: any, callBack: any): false | undefined => {
     let extension = path.extname(file.originalname);
@@ -9,6 +9,6 @@ module.exports = multer({
       callBack(new Error("File type is not supported"), false);
       return false;
     }
-    callBack(null, true)
-  }
+    callBack(null, true);
+  },
 });

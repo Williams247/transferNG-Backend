@@ -1,16 +1,20 @@
-import { Request, Response, NextFunction } from 'express'
-import { profile } from '../../services/profile'
+import { Request, Response, NextFunction } from "express";
+import { profile } from "../../services";
 
-export const handleGetProfile = async (request: Request, response: Response, next: NextFunction) => {
+export const handleGetFootBallerProfile = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   try {
-    const userId: string = request.user.id
-    const footballerProfile = await profile(userId, 'footballer')
+    const userId = request?.user?.id as string;
+    const footballerProfile = await profile(userId, "footballer");
     response.status(200).json({
-       message: "Profile fetched",
-       result: footballerProfile
-    })
+      message: "Profile fetched",
+      result: footballerProfile,
+    });
   } catch (error) {
-    console.log(error)
-    response.status(500).json({ error: "Failed to get footballer profile" })
+    console.log(error);
+    response.status(500).json({ error: "Failed to get footballer profile" });
   }
 };

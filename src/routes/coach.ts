@@ -1,9 +1,9 @@
-import express, { Router } from 'express'
-import { handleGetProfile } from '../controllers/coach/profile'
-import { AuthCoach } from '../middleware/auth'
+import express, { Router } from "express";
+import { handleGetCoachProfile } from "../controllers";
+import { AuthCoach } from "../middleware";
 
 const router: Router = express.Router();
 
-router.get('/profile', AuthCoach, handleGetProfile)
+router.get("/profile", AuthCoach, handleGetCoachProfile);
 
-export default router;
+export const coachRoutes = router;

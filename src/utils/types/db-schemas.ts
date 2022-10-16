@@ -39,15 +39,15 @@ export interface CoachSchemaProps {
   password: string;
   role: string;
   licensesCertificate: {
-    public_id: string,
-    secure_url: string
+    public_id: string;
+    secure_url: string;
   };
   dipolmaCertificate: {
-    public_id: string,
-    secure_url: string
-  }
+    public_id: string;
+    secure_url: string;
+  };
   otherTrainingCertifications: {
-    public_id: string,
-    secure_url: string
-  }
+    public_id: string;
+    secure_url: string;
+  };
 }

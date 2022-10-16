@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { CoachSchemaProps } from '../types/db-schemas'
+import { CoachSchemaProps } from "../utils/types/db-schemas";
 
 const Schema = mongoose.Schema;
 
@@ -31,11 +31,11 @@ const coach = new Schema<CoachSchemaProps>({
   },
   formerTeams: {
     type: String,
-    required: true
+    required: true,
   },
   currentTeam: {
     type: String,
-    required: true
+    required: true,
   },
   keyArchievements: String,
   currentCity: {
@@ -56,20 +56,21 @@ const coach = new Schema<CoachSchemaProps>({
   },
   role: {
     type: String,
-    required: true
+    required: true,
   },
   licensesCertificate: {
     public_id: { type: String, required: true },
-    secure_url: { type: String, required: true }
+    secure_url: { type: String, required: true },
   },
   dipolmaCertificate: {
     public_id: { type: String, required: true },
-    secure_url: { type: String, required: true }
+    secure_url: { type: String, required: true },
   },
   otherTrainingCertifications: {
     public_id: { type: String, required: true },
-    secure_url: { type: String, required: true }
-  }
+    secure_url: { type: String, required: true },
+  },
 });
 
-export default mongoose.model<CoachSchemaProps>("coach", coach);
+export const CoachModel: mongoose.Model<CoachSchemaProps, {}> =
+  mongoose.model<CoachSchemaProps>("coach", coach);

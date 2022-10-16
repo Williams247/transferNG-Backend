@@ -1,16 +1,20 @@
-import { FootBaller, Coach } from "../models";
+import { FootballerModel, CoachModel } from "../models";
 import bcrypt from "bcryptjs";
 
 interface LoginServiceProps {
   email: string;
   password: string;
-  userType: string
+  userType: string;
 }
 
-export const vetLoginService = async ({ email, password, userType }: LoginServiceProps) => {
-  if (userType === 'footballer') {
+export const vetLoginService = async ({
+  email,
+  password,
+  userType,
+}: LoginServiceProps) => {
+  if (userType === "footballer") {
     try {
-      const user = await FootBaller.findOne({ email: email });
+      const user = await FootballerModel.findOne({ email: email });
       if (!user)
         return {
           isSuccess: false,
@@ -33,9 +37,9 @@ export const vetLoginService = async ({ email, password, userType }: LoginServic
     } catch (error) {
       throw error;
     }
-  } else if (userType === 'coach') {
+  } else if (userType === "coach") {
     try {
-      const user = await Coach.findOne({ email: email });
+      const user = await CoachModel.findOne({ email: email });
       if (!user)
         return {
           isSuccess: false,

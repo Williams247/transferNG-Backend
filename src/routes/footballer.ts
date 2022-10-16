@@ -1,9 +1,9 @@
-import express, { Router } from 'express'
-import { handleGetProfile } from '../controllers/footballer/profile'
-import { AuthFootballer } from '../middleware/auth'
+import express, { Router } from "express";
+import { handleGetFootBallerProfile } from "../controllers";
+import { AuthFootballer } from "../middleware";
 
 const router: Router = express.Router();
 
-router.get('/profile', AuthFootballer, handleGetProfile)
+router.get("/profile", AuthFootballer, handleGetFootBallerProfile);
 
-export default router;
+export const footballerRoutes = router;

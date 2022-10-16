@@ -1,4 +1,3 @@
-import { vetLoginService } from './vetLogin'
-import { profile } from './profile'
-
-export { vetLoginService, profile }
+export * from "./vetLogin";
+export * from "./profile";
+export * from "./mail-check";

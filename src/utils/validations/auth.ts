@@ -2,7 +2,7 @@ import Joi from "joi";
 import {
   ValidateFootballerRegProps,
   ValidateFootballerLoginProps,
-  validateCoachRegProps
+  validateCoachRegProps,
 } from "../types/auth-validations";
 
 // Footballer registration schema validation
@@ -65,7 +65,7 @@ export const validateCoachReg = (
     firstname: Joi.string().required().min(3).max(80),
     surname: Joi.string().required().min(3).max(80),
     dob: Joi.string().required(),
-    videoLink: Joi.string().max(10),
+    videoLink: Joi.string().max(280),
     nationality: Joi.string().required(),
     languages: Joi.string().required(),
     formerTeams: Joi.string().required(),
@@ -83,7 +83,7 @@ export const validateCoachReg = (
       .valid(Joi.ref("password"))
       .error(new Error("password does not match."))
       .min(4)
-      .max(80)
+      .max(80),
   });
   return schema.validate(data);
 };

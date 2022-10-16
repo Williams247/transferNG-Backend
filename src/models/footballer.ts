@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { FootBallerSchemaProps } from '../types/db-schemas'
+import { FootBallerSchemaProps } from "../utils/types/db-schemas";
 
 const Schema = mongoose.Schema;
 
@@ -64,7 +64,7 @@ const footballer = new Schema<FootBallerSchemaProps>({
   },
   role: {
     type: String,
-    required: true
+    required: true,
   },
   linkendinProfile: String,
   instagramLink: String,
@@ -74,4 +74,5 @@ const footballer = new Schema<FootBallerSchemaProps>({
   contractExpired: String,
 });
 
-export default mongoose.model<FootBallerSchemaProps>("footballer", footballer);
+export const FootballerModel: mongoose.Model<FootBallerSchemaProps, {}> =
+  mongoose.model<FootBallerSchemaProps>("footballer", footballer);
