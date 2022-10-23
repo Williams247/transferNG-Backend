@@ -34,8 +34,9 @@ export const validateFootballerReg = (
       .error(new Error("password does not match."))
       .min(4)
       .max(80),
-    instagramLink: Joi.string().max(280),
-    twitterLink: Joi.string().max(280),
+    instagramProfileLink: Joi.string().max(280),
+    linkedinProfileLink: Joi.string().max(280),
+    twitterProfileLink: Joi.string().max(280),
     previousClub: Joi.string(),
     clubJoined: Joi.string(),
     contractExpired: Joi.string(),

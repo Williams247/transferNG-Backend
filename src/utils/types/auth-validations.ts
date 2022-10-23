@@ -16,8 +16,9 @@ export interface ValidateFootballerRegProps {
   linkendinProfile: string;
   password: string;
   confirmPassword: string;
+  linkedinProfileLink: string;
   instagramLink: string;
-  twitterLink: string;
+  twitterProfileLink: string;
   previousClub: string;
   clubJoined: string;
   contractExpired: string;

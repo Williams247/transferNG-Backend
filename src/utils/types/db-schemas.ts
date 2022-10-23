@@ -15,9 +15,9 @@ export interface FootBallerSchemaProps {
   email: string;
   password: string;
   role: string;
-  linkendinProfile: string;
-  instagramLink: string;
-  twitterLink: string;
+  linkedinProfileLink: string;
+  instagramProfileLink: string;
+  twitterProfileLink: string;
   previousClub: string;
   clubJoined: string;
   contractExpired: string;
