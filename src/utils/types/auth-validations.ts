@@ -44,3 +44,15 @@ export interface validateCoachRegProps {
   email: string;
   password: string;
 }
+
+export interface AgeRange {
+  min: number;
+  max: number;
+  dob: string;
+  user: string;
+}
+
+export interface ResponseProps {
+  message: string;
+  status: number;
+}
