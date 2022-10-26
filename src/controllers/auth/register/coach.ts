@@ -3,8 +3,8 @@ import bycript from "bcryptjs";
 import { validateCoachReg } from "../../../utils/validations/auth";
 import { cloudinaryUpload } from "../../../utils";
 import { CoachModel } from "../../../models";
-import { mailCheckService, handleVetAgeRange } from "../../../services";
-import { ResponseProps } from "../../../utils";
+import { mailCheckService } from "../../../services";
+import { ResponseProps, handleVetAgeRange } from "../../../utils";
 
 interface UrlProp {
   public_id: string;
@@ -65,6 +65,7 @@ export const handleRegisterCoach = async (
 
     const registerCoach = new CoachModel({
       ...body,
+      dob: body.dob.toISOString(),
       password: hashPassword,
       role: "coach",
       licensesCertificate: {
@@ -84,10 +85,10 @@ export const handleRegisterCoach = async (
     await registerCoach.save();
 
     response.status(201).json({
-      message: "Coach Registered",
+      message: "Congratulations, account created",
     });
   } catch (error) {
     console.log(error);
-    response.status(500).json({ error: "Failed to upload file" });
+    response.status(500).json({ error: "Sorry, registration process failed" });
   }
 };

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import bycript from "bcryptjs";
 import { FootballerModel } from "../../../models";
-import { mailCheckService, handleVetAgeRange } from "../../../services";
-import { ResponseProps } from "../../../utils";
+import { mailCheckService } from "../../../services";
+import { ResponseProps, handleVetAgeRange } from "../../../utils";
 import { validateFootballerReg } from "../../../utils/validations/auth";
 
 export const handleRegisterPlayer = async (
@@ -43,14 +43,15 @@ export const handleRegisterPlayer = async (
     const hashPassword: string = await bycript.hash(body.password, 10);
     const createFootballer = new FootballerModel({
       ...body,
+      dob: body.dob.toISOString(),
       role: "footballer",
       password: hashPassword,
     });
 
     await createFootballer.save();
-    response.status(201).json({ message: "Footballer registered" });
+    response.status(201).json({ message: "Congratulations, account created" });
   } catch (error) {
     console.log(error);
-    response.status(500).json({ error: "Failed to register footaballer" });
+    response.status(500).json({ error: "Sorry, registration process failed" });
   }
 };

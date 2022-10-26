@@ -1,4 +1,4 @@
-import { AgeRange, ResponseProps } from "../utils/types";
+import { AgeRange, ResponseProps } from "../types";
 
 export const handleVetAgeRange = async ({
   min,
