@@ -10,7 +10,7 @@ export interface LoginVetEmailServiceResponse {
   error?: string;
   status: number;
   message?: string;
-  data?: UserLoginPayload;
+  result?: UserLoginPayload;
 }
 
 export interface ResponseProps {

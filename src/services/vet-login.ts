@@ -55,7 +55,7 @@ export const handleVetLogin = async ({ email, password }: LoginParams) => {
       isSuccess: true,
       message: "Login successful",
       status: 200,
-      retsult: {
+      result: {
         token: token,
         user: payload,
       },

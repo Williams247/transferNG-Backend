@@ -40,6 +40,7 @@ export interface CoachSchemaProps {
 }
 
 export interface UserSchemaProps {
+  _id?: string;
   firstname: string;
   surname: string;
   email: string;

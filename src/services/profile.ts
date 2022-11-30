@@ -1,4 +1,9 @@
 import { UserModel, CoachModel, FootballerModel } from "../models";
+import {
+  CoachSchemaProps,
+  FootBallerSchemaProps,
+  UserSchemaProps,
+} from "../utils";
 
 interface Props {
   id: string;
@@ -8,7 +13,9 @@ interface Props {
 export const fetchProfile = async ({ id, userType }: Props) => {
   if (userType === "admin") {
     try {
-      return await UserModel.findById(id).select("-password");
+      return (await UserModel.findById(id).select(
+        "-password"
+      )) as UserSchemaProps;
     } catch (error) {
       throw error;
     }
@@ -16,11 +23,38 @@ export const fetchProfile = async ({ id, userType }: Props) => {
 
   if (userType === "coach") {
     try {
-      const coachProfile = await UserModel.findById(id).select("-password");
-      const coachModel = await CoachModel.findOne({ profile: id });
+      const { _id, firstname, surname, phoneNumber, email, role, profile } =
+        (await UserModel.findById(id).select("-password")) as UserSchemaProps;
+
+      const {
+        licenses,
+        dipolma,
+        otherTraining,
+        dob,
+        nationality,
+        language,
+        formerTeam,
+        currentCity,
+        currentTeam,
+      } = (await CoachModel.findOne({ profile: id })) as CoachSchemaProps;
+
       return {
-        ...coachProfile,
-        ...coachModel,
+        _id,
+        firstname,
+        surname,
+        phoneNumber,
+        email,
+        role,
+        profile,
+        licenses,
+        dipolma,
+        otherTraining,
+        dob,
+        nationality,
+        language,
+        formerTeam,
+        currentCity,
+        currentTeam,
       };
     } catch (error) {
       throw error;
@@ -29,13 +63,50 @@ export const fetchProfile = async ({ id, userType }: Props) => {
 
   if (userType === "footballer") {
     try {
-      const footballerProfile = await UserModel.findById(id).select(
-        "-password"
-      );
-      const footballerModel = await FootballerModel.findOne({ profile: id });
+      const { _id, firstname, surname, phoneNumber, email, role, profile } =
+        (await UserModel.findById(id).select("-password")) as UserSchemaProps;
+
+      const {
+        dob,
+        videoLink,
+        nationality,
+        language,
+        height,
+        weight,
+        bestPosition,
+        foot,
+        currentCity,
+        previousClub,
+        clubJoined,
+        instagramProfileLink,
+        twitterProfileLink,
+        contractExpired,
+      } = (await FootballerModel.findOne({
+        profile: id,
+      })) as FootBallerSchemaProps;
+
       return {
-        ...footballerProfile,
-        ...footballerModel,
+        _id,
+        firstname,
+        surname,
+        phoneNumber,
+        email,
+        role,
+        profile,
+        dob,
+        videoLink,
+        nationality,
+        language,
+        height,
+        weight,
+        bestPosition,
+        foot,
+        currentCity,
+        previousClub,
+        clubJoined,
+        instagramProfileLink,
+        twitterProfileLink,
+        contractExpired,
       };
     } catch (error) {
       throw error;

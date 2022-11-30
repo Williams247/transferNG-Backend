@@ -13,13 +13,13 @@ export const handleLoginPlayer = async (
       body
     );
 
-    const { isSuccess, error, status, data, message } = dataResponse;
+    const { isSuccess, error, status, result, message } = dataResponse;
     if (!isSuccess) {
       response.status(status).json({ error: error });
       return;
     }
 
-    response.status(status).json({ message, data });
+    response.status(status).json({ message, result });
   } catch (error) {
     console.log(error);
     response.status(500).json({ error: "Failed to login" });

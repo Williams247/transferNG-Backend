@@ -43,7 +43,7 @@ export const handleRegisterCoach = async (
     const hashPassword: string = await bycript.hash(body.password, 10);
 
     const registerCoach = new CoachModel({
-      dob: new Date(body.dob).toDateString(),
+      dob: new Date(body.dob).toISOString(),
       currentTeam: body.currentTeam,
       formerTeam: body.formerTeam,
       language: body.language,
