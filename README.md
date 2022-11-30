@@ -14,4 +14,4 @@ This command runs the application in development mode
 
 ## POSTMAN DOCS
 
-https://documenter.getpostman.com/view/13255061/VUxKSUFM#intro
+https://documenter.getpostman.com/view/13255061/VUxKSUFM
