@@ -24,12 +24,7 @@ export interface ValidateFootballerRegProps {
   contractExpired: string;
 }
 
-export interface ValidateFootballerLoginProps {
-  email: string;
-  password: string;
-}
-
-export interface validateCoachRegProps {
+export interface ValidateCoachRegProps {
   firstname: string;
   surname: string;
   dob: string;
@@ -45,6 +40,13 @@ export interface validateCoachRegProps {
   password: string;
 }
 
+export interface ValidateAdminRegProps {
+  email: string;
+  password: string;
+  firstname: string;
+  surname: string;
+}
+
 export interface AgeRange {
   min: number;
   max: number;
@@ -52,7 +54,7 @@ export interface AgeRange {
   user: string;
 }
 
-export interface ResponseProps {
-  message: string;
-  status: number;
+export interface LoginParams {
+  email: string;
+  password: string;
 }

@@ -1,21 +1,20 @@
 import Joi from "joi";
 import {
   ValidateFootballerRegProps,
-  ValidateFootballerLoginProps,
-  validateCoachRegProps,
-} from "../types/auth-validations";
+  ValidateCoachRegProps,
+  ValidateAdminRegProps,
+  ValidateLoginProps,
+} from "../types";
 
 // Footballer registration schema validation
-export const validateFootballerReg = (
-  data: ValidateFootballerRegProps
-): Joi.ValidationResult<any> => {
+export const validateFootballerReg = (data: ValidateFootballerRegProps) => {
   const schema = Joi.object({
-    firstname: Joi.string().required().min(3).max(80),
-    surname: Joi.string().required().min(3).max(80),
+    firstname: Joi.string().required().min(2).max(80),
+    surname: Joi.string().required().min(2).max(80),
     dob: Joi.string().required(),
     videoLink: Joi.string(),
     nationality: Joi.string().required(),
-    languages: Joi.string().required(),
+    language: Joi.string().required(),
     height: Joi.string().required().max(5),
     weight: Joi.string().required().max(5),
     bestPosition: Joi.string().required(),
@@ -27,16 +26,16 @@ export const validateFootballerReg = (
       .required()
       .email({ minDomainSegments: 2, tlds: { allow: ["com"] } })
       .max(80),
-    password: Joi.string().required().min(4).max(80),
+    password: Joi.string().required(),
     confirmPassword: Joi.string()
       .required()
       .valid(Joi.ref("password"))
       .error(new Error("password does not match."))
       .min(4)
       .max(80),
-    instagramProfileLink: Joi.string().max(280),
-    linkedinProfileLink: Joi.string().max(280),
-    twitterProfileLink: Joi.string().max(280),
+    instagramProfileLink: Joi.string(),
+    linkedinProfileLink: Joi.string(),
+    twitterProfileLink: Joi.string(),
     previousClub: Joi.string(),
     clubJoined: Joi.string(),
     contractExpired: Joi.string(),
@@ -44,10 +43,8 @@ export const validateFootballerReg = (
   return schema.validate(data);
 };
 
-// Footballer login schema validation
-export const ValidateFooballerLogin = (
-  data: ValidateFootballerLoginProps
-): Joi.ValidationResult<any> => {
+// Login schema validation for footballer coach and admin
+export const ValidateLogin = (data: ValidateLoginProps) => {
   const schema = Joi.object({
     email: Joi.string()
       .required()
@@ -59,17 +56,15 @@ export const ValidateFooballerLogin = (
 };
 
 // Register coach
-export const validateCoachReg = (
-  data: validateCoachRegProps
-): Joi.ValidationResult<any> => {
+export const ValidateCoachReg = (data: ValidateCoachRegProps) => {
   const schema = Joi.object({
     firstname: Joi.string().required().min(3).max(80),
     surname: Joi.string().required().min(3).max(80),
     dob: Joi.string().required(),
     videoLink: Joi.string().max(280),
     nationality: Joi.string().required(),
-    languages: Joi.string().required(),
-    formerTeams: Joi.string().required(),
+    language: Joi.string().required(),
+    formerTeam: Joi.string().required(),
     currentTeam: Joi.string().required(),
     keyArchievements: Joi.string().max(500),
     currentCity: Joi.string().required(),
@@ -85,20 +80,57 @@ export const validateCoachReg = (
       .error(new Error("password does not match."))
       .min(4)
       .max(80),
+    licenses: Joi.object()
+      .required()
+      .min(2)
+      .max(2)
+      .keys({
+        publicId: Joi.string()
+          .required()
+          .error(new Error("Licenses Certificate id is required")),
+        url: Joi.string()
+          .required()
+          .error(new Error("Licenses Certificate url is required")),
+      }),
+    dipolma: Joi.object()
+      .required()
+      .min(2)
+      .max(2)
+      .keys({
+        publicId: Joi.string()
+          .required()
+          .error(new Error("Dipolma Certificate id is required")),
+        url: Joi.string()
+          .required()
+          .error(new Error("Diploma Certificate url is required")),
+      }),
+    otherTraining: Joi.object()
+      .required()
+      .min(2)
+      .max(2)
+      .keys({
+        publicId: Joi.string()
+          .required()
+          .error(new Error("Other Training Certificate id is required")),
+        url: Joi.string()
+          .required()
+          .error(new Error("Other Training Certificate url is required")),
+      }),
   });
   return schema.validate(data);
 };
 
-// Coach login schema validation
-export const ValidateCoachLogin = (
-  data: ValidateFootballerLoginProps
-): Joi.ValidationResult<any> => {
+// Register admin schema
+export const ValidateAdminReg = (data: ValidateAdminRegProps) => {
   const schema = Joi.object({
+    firstname: Joi.string().required().min(2).max(80),
+    surname: Joi.string().required().min(2).max(80),
+    phoneNumber: Joi.string().required(),
     email: Joi.string()
       .required()
       .email({ minDomainSegments: 2, tlds: { allow: ["com"] } })
       .max(80),
-    password: Joi.string().required().min(4).max(80),
+    password: Joi.string().required(),
   });
   return schema.validate(data);
 };

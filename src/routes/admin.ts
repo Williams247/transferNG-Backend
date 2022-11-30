@@ -4,6 +4,6 @@ import { Auth } from "../middleware";
 
 const router: Router = express.Router();
 
-router.get("/profile", Auth({ userType: "coach" }), handleGetCoachProfile);
+router.get("/profile", Auth({ userType: "admin" }), handleGetCoachProfile);
 
-export const coachRoutes = router;
+export const adminRoutes = router;

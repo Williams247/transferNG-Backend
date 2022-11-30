@@ -1,15 +1,9 @@
 import { Request, Response } from "express";
 import bycript from "bcryptjs";
-import { validateCoachReg } from "../../../utils/validations/auth";
-import { cloudinaryUpload } from "../../../utils";
-import { CoachModel } from "../../../models";
-import { mailCheckService } from "../../../services";
+import { ValidateCoachReg } from "../../../utils";
 import { ResponseProps, handleVetAgeRange } from "../../../utils";
-
-interface UrlProp {
-  public_id: string;
-  secure_url: string;
-}
+import { CoachModel, UserModel } from "../../../models";
+import { mailCheckService } from "../../../services";
 
 export const handleRegisterCoach = async (
   request: Request,
@@ -18,7 +12,7 @@ export const handleRegisterCoach = async (
   try {
     const { body } = request;
 
-    const validateCoachRegistration = validateCoachReg(body);
+    const validateCoachRegistration = ValidateCoachReg(body);
     if (validateCoachRegistration.error) {
       response
         .status(400)
@@ -46,43 +40,42 @@ export const handleRegisterCoach = async (
       return;
     }
 
-    if (request.files?.length !== 3) {
-      response
-        .status(400)
-        .json({ error: "Files for this registration is not complete" });
-      return;
-    }
-
-    const urls: UrlProp[] = [];
-    const files: any = request.files;
-    for (const file of files) {
-      const { path } = file;
-      const newPath = await cloudinaryUpload.uploader.upload(path);
-      urls.push(newPath);
-    }
-
     const hashPassword: string = await bycript.hash(body.password, 10);
 
     const registerCoach = new CoachModel({
-      ...body,
-      dob: body.dob.toISOString(),
-      password: hashPassword,
-      role: "coach",
-      licensesCertificate: {
-        public_id: urls[0].public_id,
-        secure_url: urls[0].secure_url,
+      dob: new Date(body.dob).toDateString(),
+      currentTeam: body.currentTeam,
+      formerTeam: body.formerTeam,
+      language: body.language,
+      nationality: body.nationality,
+      currentCity: body.currentCity,
+      licenses: {
+        publicId: body.licenses.publicId,
+        url: body.licenses.url,
       },
-      dipolmaCertificate: {
-        public_id: urls[1].public_id,
-        secure_url: urls[1].secure_url,
+      dipolma: {
+        publicId: body.dipolma.publicId,
+        url: body.dipolma.url,
       },
-      otherTrainingCertifications: {
-        public_id: urls[2].public_id,
-        secure_url: urls[2].secure_url,
+      otherTraining: {
+        publicId: body.otherTraining.publicId,
+        url: body.otherTraining.url,
       },
     });
 
     await registerCoach.save();
+
+    const user = new UserModel({
+      firstname: body.firstname,
+      surname: body.surname,
+      email: body.email,
+      phoneNumber: body.phoneNumber,
+      password: hashPassword,
+      role: "coach",
+      profile: registerCoach,
+    });
+
+    await user.save();
 
     response.status(201).json({
       message: "Congratulations, account created",

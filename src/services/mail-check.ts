@@ -1,4 +1,4 @@
-import { CoachModel, FootballerModel } from "../models";
+import { UserModel } from "../models";
 
 interface VetProp {
   success: boolean;
@@ -10,10 +10,8 @@ export const mailCheckService = async ({
   email: string;
 }): Promise<VetProp> => {
   try {
-    const checkFootBaller = await FootballerModel.findOne({ email: email });
-    const checkCoach = await CoachModel.findOne({ email: email });
-
-    if (checkCoach || checkFootBaller) {
+    const isRegistered = await UserModel.findOne({ email });
+    if (isRegistered) {
       const response: VetProp = { success: false };
       return response;
     }

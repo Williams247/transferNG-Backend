@@ -1,9 +1,13 @@
 import express, { Router } from "express";
 import { handleGetFootBallerProfile } from "../controllers";
-import { AuthFootballer } from "../middleware";
+import { Auth } from "../middleware";
 
 const router: Router = express.Router();
 
-router.get("/profile", AuthFootballer, handleGetFootBallerProfile);
+router.get(
+  "/profile",
+  Auth({ userType: "footballer" }),
+  handleGetFootBallerProfile
+);
 
 export const footballerRoutes = router;
