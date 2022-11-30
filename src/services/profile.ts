@@ -1,15 +1,42 @@
-import { FootballerModel, CoachModel } from "../models";
+import { UserModel, CoachModel, FootballerModel } from "../models";
 
-export const profile = async (id: string, userType: string): Promise<any> => {
-  if (userType === "footballer") {
+interface Props {
+  id: string;
+  userType: string;
+}
+
+export const fetchProfile = async ({ id, userType }: Props) => {
+  if (userType === "admin") {
     try {
-      return await FootballerModel.findOne({ _id: id }).select("-password");
+      return await UserModel.findById(id).select("-password");
     } catch (error) {
       throw error;
     }
-  } else if (userType === "coach") {
+  }
+
+  if (userType === "coach") {
     try {
-      return await CoachModel.findOne({ _id: id }).select("-password");
+      const coachProfile = await UserModel.findById(id).select("-password");
+      const coachModel = await CoachModel.findOne({ profile: id });
+      return {
+        ...coachProfile,
+        ...coachModel,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  if (userType === "footballer") {
+    try {
+      const footballerProfile = await UserModel.findById(id).select(
+        "-password"
+      );
+      const footballerModel = await FootballerModel.findOne({ profile: id });
+      return {
+        ...footballerProfile,
+        ...footballerModel,
+      };
     } catch (error) {
       throw error;
     }

@@ -1,25 +1,17 @@
 import JWT from "jsonwebtoken";
 import { UserModel } from "../models";
-import {
-  LoginVetEmailServiceResponse,
-  LoginParams,
-  ValidateLogin,
-  UserLoginPayload,
-} from "../utils";
+import { LoginParams, ValidateLogin, UserLoginPayload } from "../utils";
 
 import bcrypt from "bcryptjs";
 
-export const handleVetLogin = async ({
-  email,
-  password,
-}: LoginParams): Promise<LoginVetEmailServiceResponse> => {
+export const handleVetLogin = async ({ email, password }: LoginParams) => {
   try {
     const validateAdminLogin = ValidateLogin({ email, password });
     if (validateAdminLogin.error) {
       return {
         isSuccess: false,
         error: validateAdminLogin.error.message,
-        status: 400,
+        status: 401,
       };
     }
 
@@ -63,7 +55,7 @@ export const handleVetLogin = async ({
       isSuccess: true,
       message: "Login successful",
       status: 200,
-      data: {
+      retsult: {
         token: token,
         user: payload,
       },

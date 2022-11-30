@@ -39,14 +39,6 @@ export interface CoachSchemaProps {
   otherTraining: DataUrl;
 }
 
-export interface AdminProps {
-  email: string;
-  password: string;
-  role: string;
-  firstname: string;
-  lastname: string;
-}
-
 export interface UserSchemaProps {
   firstname: string;
   surname: string;

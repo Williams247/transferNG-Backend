@@ -1,14 +1,16 @@
-import { Request, Response, NextFunction } from "express";
-import { profile } from "../../services";
+import { Request, Response } from "express";
+import { fetchProfile } from "../../services";
 
 export const handleGetFootBallerProfile = async (
   request: Request,
-  response: Response,
-  next: NextFunction
+  response: Response
 ) => {
   try {
-    const userId = request?.user?.id as string;
-    const footballerProfile = await profile(userId, "footballer");
+    const id = request?.user?.id as string;
+    const footballerProfile = await fetchProfile({
+      id: id,
+      userType: "footballer",
+    });
     response.status(200).json({
       message: "Profile fetched",
       result: footballerProfile,

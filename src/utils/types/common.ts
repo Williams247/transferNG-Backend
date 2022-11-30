@@ -17,3 +17,11 @@ export interface ResponseProps {
   message: string;
   status: number;
 }
+
+export interface AdminProps {
+  email: string;
+  password: string;
+  role: string;
+  firstname: string;
+  lastname: string;
+}

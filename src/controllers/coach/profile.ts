@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { profile } from "../../services";
+import { fetchProfile } from "../../services";
 
 export const handleGetCoachProfile = async (
   request: Request,
   response: Response
 ) => {
   try {
-    const userId = request?.user?.id as string;
-    const coachProfile = await profile(userId, "coach");
+    const id = request?.user?.id as string;
+    const coachProfile = await fetchProfile({ id: id, userType: "coach" });
     response.status(200).json({
       message: "Profile fetched",
       result: coachProfile,
