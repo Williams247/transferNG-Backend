@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { LoginVetEmailServiceResponse } from "../../../utils";
 import { handleVetLogin } from "../../../services";
 
-export const handleLoginCoach = async (
+export const handleLoginAdmin = async (
   request: Request,
   response: Response
 ): Promise<void> => {

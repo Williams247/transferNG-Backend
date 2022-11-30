@@ -1,21 +1,9 @@
 import mongoose from "mongoose";
-import { FootBallerSchemaProps } from "../utils/types/db-schemas";
+import { FootBallerSchemaProps } from "../../utils";
 
 const Schema = mongoose.Schema;
 
 const footballer = new Schema<FootBallerSchemaProps>({
-  firstname: {
-    type: String,
-    required: true,
-    min: 3,
-    max: 80,
-  },
-  surname: {
-    type: String,
-    required: true,
-    min: 3,
-    max: 80,
-  },
   dob: {
     type: String,
     required: true,
@@ -25,7 +13,7 @@ const footballer = new Schema<FootBallerSchemaProps>({
     type: String,
     required: true,
   },
-  languages: {
+  language: {
     type: String,
     required: true,
   },
@@ -50,29 +38,31 @@ const footballer = new Schema<FootBallerSchemaProps>({
     type: String,
     required: false,
   },
-  phoneNumber: {
+  linkedinProfileLink: {
     type: String,
     required: true,
   },
-  email: {
+  instagramProfileLink: {
     type: String,
     required: true,
   },
-  password: {
+  twitterProfileLink: {
     type: String,
     required: true,
   },
-  role: {
+  previousClub: {
     type: String,
     required: true,
   },
-  linkedinProfileLink: String,
-  instagramProfileLink: String,
-  twitterProfileLink: String,
-  previousClub: String,
-  clubJoined: String,
-  contractExpired: String,
+  clubJoined: {
+    type: String,
+    required: true,
+  },
+  contractExpired: {
+    type: String,
+    required: true,
+  },
 });
 
 export const FootballerModel: mongoose.Model<FootBallerSchemaProps, {}> =
-  mongoose.model<FootBallerSchemaProps>("footballer", footballer);
+  mongoose.model("footballerProfile", footballer);

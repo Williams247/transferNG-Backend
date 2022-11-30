@@ -1,10 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { profile } from "../../services";
 
 export const handleGetCoachProfile = async (
   request: Request,
-  response: Response,
-  next: NextFunction
+  response: Response
 ) => {
   try {
     const userId = request?.user?.id as string;

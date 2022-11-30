@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import bycript from "bcryptjs";
-import { FootballerModel } from "../../../models";
+import { FootballerModel, UserModel } from "../../../models";
 import { mailCheckService } from "../../../services";
 import { ResponseProps, handleVetAgeRange } from "../../../utils";
-import { validateFootballerReg } from "../../../utils/validations/auth";
+import { validateFootballerReg } from "../../../utils";
 
 export const handleRegisterPlayer = async (
   request: Request,
@@ -41,14 +41,39 @@ export const handleRegisterPlayer = async (
     }
 
     const hashPassword: string = await bycript.hash(body.password, 10);
-    const createFootballer = new FootballerModel({
-      ...body,
-      dob: body.dob.toISOString(),
-      role: "footballer",
-      password: hashPassword,
+
+    const registerFootballer = new FootballerModel({
+      dob: new Date(body.dob).toISOString(),
+      videoLink: body.videoLink,
+      nationality: body.nationality,
+      language: body.language,
+      height: body.height,
+      weight: body.weight,
+      bestPosition: body.bestPosition,
+      foot: body.foot,
+      currentCity: body.currentCity,
+      previousClub: body.previousClub,
+      clubJoined: body.clubJoined,
+      instagramProfileLink: body.instagramProfileLink,
+      linkedinProfileLink: body.linkedinProfileLink,
+      twitterProfileLink: body.twitterProfileLink,
+      contractExpired: new Date(body.contractExpired).toISOString(),
     });
 
-    await createFootballer.save();
+    await registerFootballer.save();
+
+    const user = new UserModel({
+      firstname: body.firstname,
+      surname: body.surname,
+      email: body.email,
+      phoneNumber: body.phoneNumber,
+      password: hashPassword,
+      role: "footballer",
+      profile: registerFootballer,
+    });
+
+    await user.save();
+
     response.status(201).json({ message: "Congratulations, account created" });
   } catch (error) {
     console.log(error);

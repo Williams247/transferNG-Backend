@@ -5,21 +5,21 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import routes from "./routes";
-import { UserProp } from "./utils";
+import { UserProfile } from "./utils";
 
 dotenv.config();
 
 declare global {
   namespace Express {
     interface Request {
-      user?: UserProp;
+      user?: UserProfile;
     }
   }
 }
 
 const app: Application = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(morgan("dev"));

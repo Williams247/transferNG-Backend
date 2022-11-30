@@ -1,20 +1,20 @@
+interface DataUrl {
+  publicId: string;
+  url: string;
+}
+
+// Footballer profile props
 export interface FootBallerSchemaProps {
-  firstname: string;
-  surname: string;
   dob: string;
   videoLink: string;
   nationality: string;
-  languages: string;
+  language: string;
   height: string;
   weight: string;
   bestPosition: string;
   foot: string;
   shortBiography: string;
   currentCity: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
-  role: string;
   linkedinProfileLink: string;
   instagramProfileLink: string;
   twitterProfileLink: string;
@@ -23,31 +23,36 @@ export interface FootBallerSchemaProps {
   contractExpired: string;
 }
 
+// Coach profile props
 export interface CoachSchemaProps {
-  firstname: string;
-  surname: string;
   dob: string;
-  videoLink: string;
+  shortBiography: string;
   nationality: string;
-  languages: string;
-  formerTeams: string;
+  formerTeam: string;
   currentTeam: string;
+  videoLink: string;
+  language: string;
   keyArchievements: string;
   currentCity: string;
-  phoneNumber: string;
+  licenses: DataUrl;
+  dipolma: DataUrl;
+  otherTraining: DataUrl;
+}
+
+export interface AdminProps {
   email: string;
   password: string;
   role: string;
-  licensesCertificate: {
-    public_id: string;
-    secure_url: string;
-  };
-  dipolmaCertificate: {
-    public_id: string;
-    secure_url: string;
-  };
-  otherTrainingCertifications: {
-    public_id: string;
-    secure_url: string;
-  };
+  firstname: string;
+  lastname: string;
+}
+
+export interface UserSchemaProps {
+  firstname: string;
+  surname: string;
+  email: string;
+  password: string;
+  role: string;
+  phoneNumber: string;
+  profile: FootBallerSchemaProps | CoachSchemaProps;
 }
