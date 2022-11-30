@@ -69,7 +69,7 @@ export const handleRegisterPlayer = async (
       phoneNumber: body.phoneNumber,
       password: hashPassword,
       role: "footballer",
-      profile: registerFootballer,
+      footballerProfile: registerFootballer,
     });
 
     await user.save();

@@ -1,9 +1,5 @@
-import { UserModel, CoachModel, FootballerModel } from "../models";
-import {
-  CoachSchemaProps,
-  FootBallerSchemaProps,
-  UserSchemaProps,
-} from "../utils";
+import { UserModel } from "../models";
+import { UserSchemaProps } from "../utils";
 
 interface Props {
   id: string;
@@ -23,38 +19,27 @@ export const fetchProfile = async ({ id, userType }: Props) => {
 
   if (userType === "coach") {
     try {
-      const { _id, firstname, surname, phoneNumber, email, role, profile } =
-        (await UserModel.findById(id).select("-password")) as UserSchemaProps;
-
-      const {
-        licenses,
-        dipolma,
-        otherTraining,
-        dob,
-        nationality,
-        language,
-        formerTeam,
-        currentCity,
-        currentTeam,
-      } = (await CoachModel.findOne({ profile: id })) as CoachSchemaProps;
+      const coach = (await UserModel.findById(id).select("-password").populate({
+        path: "coachProfile",
+        select: "-password",
+      })) as UserSchemaProps;
 
       return {
-        _id,
-        firstname,
-        surname,
-        phoneNumber,
-        email,
-        role,
-        profile,
-        licenses,
-        dipolma,
-        otherTraining,
-        dob,
-        nationality,
-        language,
-        formerTeam,
-        currentCity,
-        currentTeam,
+        _id: coach._id,
+        firstname: coach.firstname,
+        surname: coach.surname,
+        email: coach.email,
+        phoneNumber: coach.phoneNumber,
+        role: coach.role,
+        licenses: coach.coachProfile?.licenses,
+        dipolma: coach.coachProfile?.dipolma,
+        otherTraining: coach.coachProfile?.otherTraining,
+        dob: coach.coachProfile?.dob,
+        nationality: coach.coachProfile?.nationality,
+        language: coach.coachProfile?.language,
+        formerTeam: coach.coachProfile?.formerTeam,
+        currentTeam: coach.coachProfile?.currentTeam,
+        currentCity: coach.coachProfile?.currentCity,
       };
     } catch (error) {
       throw error;
@@ -63,50 +48,35 @@ export const fetchProfile = async ({ id, userType }: Props) => {
 
   if (userType === "footballer") {
     try {
-      const { _id, firstname, surname, phoneNumber, email, role, profile } =
-        (await UserModel.findById(id).select("-password")) as UserSchemaProps;
-
-      const {
-        dob,
-        videoLink,
-        nationality,
-        language,
-        height,
-        weight,
-        bestPosition,
-        foot,
-        currentCity,
-        previousClub,
-        clubJoined,
-        instagramProfileLink,
-        twitterProfileLink,
-        contractExpired,
-      } = (await FootballerModel.findOne({
-        profile: id,
-      })) as FootBallerSchemaProps;
+      const footballer = (await UserModel.findById(id)
+        .select("-password")
+        .populate({
+          path: "footballerProfile",
+          select: "-password",
+        })) as UserSchemaProps;
 
       return {
-        _id,
-        firstname,
-        surname,
-        phoneNumber,
-        email,
-        role,
-        profile,
-        dob,
-        videoLink,
-        nationality,
-        language,
-        height,
-        weight,
-        bestPosition,
-        foot,
-        currentCity,
-        previousClub,
-        clubJoined,
-        instagramProfileLink,
-        twitterProfileLink,
-        contractExpired,
+        _id: footballer._id,
+        firstname: footballer.firstname,
+        surname: footballer.surname,
+        email: footballer.email,
+        phoneNumber: footballer.phoneNumber,
+        role: footballer.role,
+        dob: footballer.footballerProfile?.dob,
+        nationality: footballer.footballerProfile?.nationality,
+        language: footballer.footballerProfile?.language,
+        height: footballer.footballerProfile?.height,
+        weight: footballer.footballerProfile?.weight,
+        bestPosition: footballer.footballerProfile?.bestPosition,
+        foot: footballer.footballerProfile?.foot,
+        currentCity: footballer.footballerProfile?.currentCity,
+        linkedinProfileLink: footballer.footballerProfile?.linkedinProfileLink,
+        instagramProfileLink:
+          footballer.footballerProfile?.instagramProfileLink,
+        twitterProfileLink: footballer.footballerProfile?.twitterProfileLink,
+        previousClub: footballer.footballerProfile?.previousClub,
+        clubJoined: footballer.footballerProfile?.clubJoined,
+        contractExpired: footballer.footballerProfile?.contractExpired,
       };
     } catch (error) {
       throw error;
