@@ -8,7 +8,7 @@ import { validateFootballerReg } from "../../../utils";
 export const handleRegisterPlayer = async (
   request: Request,
   response: Response
-): Promise<void> => {
+) => {
   try {
     const { body } = request;
     const validateFootallerRegistration = validateFootballerReg(body);

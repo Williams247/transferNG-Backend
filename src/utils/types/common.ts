@@ -25,3 +25,8 @@ export interface AdminProps {
   firstname: string;
   lastname: string;
 }
+
+export interface PaginationProps {
+  page: number;
+  limit: number;
+}

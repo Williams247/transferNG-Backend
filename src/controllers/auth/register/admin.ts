@@ -6,7 +6,7 @@ import { ValidateAdminReg } from "../../../utils";
 export const handleRegisterAdmin = async (
   request: Request,
   response: Response
-): Promise<void> => {
+) => {
   try {
     const { body } = request;
     const validateAdminRegistration = ValidateAdminReg(body);

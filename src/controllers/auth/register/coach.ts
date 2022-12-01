@@ -8,7 +8,7 @@ import { mailCheckService } from "../../../services";
 export const handleRegisterCoach = async (
   request: Request,
   response: Response
-): Promise<void> => {
+) => {
   try {
     const { body } = request;
 
