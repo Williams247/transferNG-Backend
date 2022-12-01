@@ -1,2 +1,2 @@
 export * from "./profile";
-export * from "./footballers";
+export * from "./users";

@@ -1,3 +1,5 @@
+import { AdminProps } from "./common";
+
 interface DataUrl {
   publicId: string;
   url: string;
@@ -49,4 +51,11 @@ export interface UserSchemaProps {
   phoneNumber: string;
   footballerPersonalData?: FootBallerSchemaProps;
   coachPersonalData?: CoachSchemaProps;
+}
+
+export interface ProductSchemaProps {
+  name: string;
+  price: number;
+  description?: string;
+  seller?: AdminProps;
 }

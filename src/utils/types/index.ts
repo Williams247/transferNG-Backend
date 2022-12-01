@@ -1,4 +1,4 @@
-export * from "./auth-validations";
+export * from "./auth";
 export * from "./common";
-export * from "./db-schemas";
+export * from "./schemas";
 export * from "./user";

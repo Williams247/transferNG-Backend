@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { UserSchemaProps } from "../utils/types/db-schemas";
+import { UserSchemaProps } from "../utils/types/schemas";
 
 const Schema = mongoose.Schema;
 

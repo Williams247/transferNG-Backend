@@ -5,6 +5,7 @@ import {
   ValidateAdminRegProps,
   ValidateLoginProps,
 } from "../types";
+import { Domains } from "../constants";
 
 // Footballer registration schema validation
 export const validateFootballerReg = (data: ValidateFootballerRegProps) => {
@@ -26,7 +27,7 @@ export const validateFootballerReg = (data: ValidateFootballerRegProps) => {
       .required()
       .email({
         minDomainSegments: 2,
-        tlds: { allow: ["com", "net", "uk", "co", "io"] },
+        tlds: { allow: Domains },
       })
       .max(80),
     password: Joi.string().required(),
@@ -53,7 +54,7 @@ export const ValidateLogin = (data: ValidateLoginProps) => {
       .required()
       .email({
         minDomainSegments: 2,
-        tlds: { allow: ["com", "net", "uk", "co", "io"] },
+        tlds: { allow: Domains },
       })
       .max(80),
     password: Joi.string().required().min(4).max(80),
@@ -79,7 +80,7 @@ export const ValidateCoachReg = (data: ValidateCoachRegProps) => {
       .required()
       .email({
         minDomainSegments: 2,
-        tlds: { allow: ["com", "net", "uk", "co", "io"] },
+        tlds: { allow: Domains },
       })
       .max(80),
     password: Joi.string().required().min(4).max(80),
@@ -139,7 +140,7 @@ export const ValidateAdminReg = (data: ValidateAdminRegProps) => {
       .required()
       .email({
         minDomainSegments: 2,
-        tlds: { allow: ["com", "net", "uk", "co", "io"] },
+        tlds: { allow: Domains },
       })
       .max(80),
     password: Joi.string().required(),

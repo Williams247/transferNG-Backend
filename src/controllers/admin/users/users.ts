@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { handleFindUsers } from "../../../services";
 
-export const handleFetchFootballers = async (
+export const handleFetchUsers = async (
   request: Request,
   response: Response
 ) => {
