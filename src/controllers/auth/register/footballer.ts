@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bycript from "bcryptjs";
-import { FootballerModel, UserModel } from "../../../models";
+import { UserModel } from "../../../models";
 import { mailCheckService } from "../../../services";
 import { ResponseProps, handleVetAgeRange } from "../../../utils";
 import { validateFootballerReg } from "../../../utils";
@@ -42,26 +42,6 @@ export const handleRegisterPlayer = async (
 
     const hashPassword: string = await bycript.hash(body.password, 10);
 
-    const registerFootballer = new FootballerModel({
-      dob: new Date(body.dob).toISOString(),
-      videoLink: body.videoLink,
-      nationality: body.nationality,
-      language: body.language,
-      height: body.height,
-      weight: body.weight,
-      bestPosition: body.bestPosition,
-      foot: body.foot,
-      currentCity: body.currentCity,
-      previousClub: body.previousClub,
-      clubJoined: body.clubJoined,
-      instagramProfileLink: body.instagramProfileLink,
-      linkedinProfileLink: body.linkedinProfileLink,
-      twitterProfileLink: body.twitterProfileLink,
-      contractExpired: new Date(body.contractExpired).toISOString(),
-    });
-
-    await registerFootballer.save();
-
     const user = new UserModel({
       firstname: body.firstname,
       surname: body.surname,
@@ -69,7 +49,23 @@ export const handleRegisterPlayer = async (
       phoneNumber: body.phoneNumber,
       password: hashPassword,
       role: "footballer",
-      footballerProfile: registerFootballer,
+      footballerPersonalData: {
+        dob: new Date(body.dob).toISOString(),
+        videoLink: body.videoLink,
+        nationality: body.nationality,
+        language: body.language,
+        height: body.height,
+        weight: body.weight,
+        bestPosition: body.bestPosition,
+        foot: body.foot,
+        currentCity: body.currentCity,
+        previousClub: body.previousClub,
+        clubJoined: body.clubJoined,
+        instagramProfileLink: body.instagramProfileLink,
+        linkedinProfileLink: body.linkedinProfileLink,
+        twitterProfileLink: body.twitterProfileLink,
+        contractExpired: new Date(body.contractExpired).toISOString(),
+      },
     });
 
     await user.save();

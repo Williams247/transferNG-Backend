@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bycript from "bcryptjs";
 import { ValidateCoachReg } from "../../../utils";
 import { ResponseProps, handleVetAgeRange } from "../../../utils";
-import { CoachModel, UserModel } from "../../../models";
+import { UserModel } from "../../../models";
 import { mailCheckService } from "../../../services";
 
 export const handleRegisterCoach = async (
@@ -42,29 +42,6 @@ export const handleRegisterCoach = async (
 
     const hashPassword: string = await bycript.hash(body.password, 10);
 
-    const registerCoach = new CoachModel({
-      dob: new Date(body.dob).toISOString(),
-      currentTeam: body.currentTeam,
-      formerTeam: body.formerTeam,
-      language: body.language,
-      nationality: body.nationality,
-      currentCity: body.currentCity,
-      licenses: {
-        publicId: body.licenses.publicId,
-        url: body.licenses.url,
-      },
-      dipolma: {
-        publicId: body.dipolma.publicId,
-        url: body.dipolma.url,
-      },
-      otherTraining: {
-        publicId: body.otherTraining.publicId,
-        url: body.otherTraining.url,
-      },
-    });
-
-    await registerCoach.save();
-
     const user = new UserModel({
       firstname: body.firstname,
       surname: body.surname,
@@ -72,7 +49,26 @@ export const handleRegisterCoach = async (
       phoneNumber: body.phoneNumber,
       password: hashPassword,
       role: "coach",
-      coachProfile: registerCoach,
+      coachPersonalData: {
+        dob: new Date(body.dob).toISOString(),
+        currentTeam: body.currentTeam,
+        formerTeam: body.formerTeam,
+        language: body.language,
+        nationality: body.nationality,
+        currentCity: body.currentCity,
+        licenses: {
+          publicId: body.licenses.publicId,
+          url: body.licenses.url,
+        },
+        dipolma: {
+          publicId: body.dipolma.publicId,
+          url: body.dipolma.url,
+        },
+        otherTraining: {
+          publicId: body.otherTraining.publicId,
+          url: body.otherTraining.url,
+        },
+      },
     });
 
     await user.save();

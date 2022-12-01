@@ -47,6 +47,6 @@ export interface UserSchemaProps {
   password: string;
   role: string;
   phoneNumber: string;
-  footballerProfile?: FootBallerSchemaProps;
-  coachProfile?: CoachSchemaProps;
+  footballerPersonalData?: FootBallerSchemaProps;
+  coachPersonalData?: CoachSchemaProps;
 }

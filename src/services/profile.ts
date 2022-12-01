@@ -19,11 +19,9 @@ export const fetchProfile = async ({ id, userType }: Props) => {
 
   if (userType === "coach") {
     try {
-      const coach = (await UserModel.findById(id).select("-password").populate({
-        path: "coachProfile",
-        select: "-password",
-      })) as UserSchemaProps;
-
+      const coach = (await UserModel.findById(id).select(
+        "-password"
+      )) as UserSchemaProps;
       return {
         _id: coach._id,
         firstname: coach.firstname,
@@ -31,15 +29,7 @@ export const fetchProfile = async ({ id, userType }: Props) => {
         email: coach.email,
         phoneNumber: coach.phoneNumber,
         role: coach.role,
-        licenses: coach.coachProfile?.licenses,
-        dipolma: coach.coachProfile?.dipolma,
-        otherTraining: coach.coachProfile?.otherTraining,
-        dob: coach.coachProfile?.dob,
-        nationality: coach.coachProfile?.nationality,
-        language: coach.coachProfile?.language,
-        formerTeam: coach.coachProfile?.formerTeam,
-        currentTeam: coach.coachProfile?.currentTeam,
-        currentCity: coach.coachProfile?.currentCity,
+        ...coach.coachPersonalData,
       };
     } catch (error) {
       throw error;
@@ -48,12 +38,9 @@ export const fetchProfile = async ({ id, userType }: Props) => {
 
   if (userType === "footballer") {
     try {
-      const footballer = (await UserModel.findById(id)
-        .select("-password")
-        .populate({
-          path: "footballerProfile",
-          select: "-password",
-        })) as UserSchemaProps;
+      const footballer = (await UserModel.findById(id).select(
+        "-password"
+      )) as UserSchemaProps;
 
       return {
         _id: footballer._id,
@@ -62,21 +49,7 @@ export const fetchProfile = async ({ id, userType }: Props) => {
         email: footballer.email,
         phoneNumber: footballer.phoneNumber,
         role: footballer.role,
-        dob: footballer.footballerProfile?.dob,
-        nationality: footballer.footballerProfile?.nationality,
-        language: footballer.footballerProfile?.language,
-        height: footballer.footballerProfile?.height,
-        weight: footballer.footballerProfile?.weight,
-        bestPosition: footballer.footballerProfile?.bestPosition,
-        foot: footballer.footballerProfile?.foot,
-        currentCity: footballer.footballerProfile?.currentCity,
-        linkedinProfileLink: footballer.footballerProfile?.linkedinProfileLink,
-        instagramProfileLink:
-          footballer.footballerProfile?.instagramProfileLink,
-        twitterProfileLink: footballer.footballerProfile?.twitterProfileLink,
-        previousClub: footballer.footballerProfile?.previousClub,
-        clubJoined: footballer.footballerProfile?.clubJoined,
-        contractExpired: footballer.footballerProfile?.contractExpired,
+        ...footballer.footballerPersonalData,
       };
     } catch (error) {
       throw error;

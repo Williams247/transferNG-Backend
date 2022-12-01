@@ -24,7 +24,10 @@ export const validateFootballerReg = (data: ValidateFootballerRegProps) => {
     phoneNumber: Joi.string().required(),
     email: Joi.string()
       .required()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com"] } })
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net", "uk", "co", "io"] },
+      })
       .max(80),
     password: Joi.string().required(),
     confirmPassword: Joi.string()
@@ -48,7 +51,10 @@ export const ValidateLogin = (data: ValidateLoginProps) => {
   const schema = Joi.object({
     email: Joi.string()
       .required()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com"] } })
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net", "uk", "co", "io"] },
+      })
       .max(80),
     password: Joi.string().required().min(4).max(80),
   });
@@ -71,7 +77,10 @@ export const ValidateCoachReg = (data: ValidateCoachRegProps) => {
     phoneNumber: Joi.string().required(),
     email: Joi.string()
       .required()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com"] } })
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net", "uk", "co", "io"] },
+      })
       .max(80),
     password: Joi.string().required().min(4).max(80),
     confirmPassword: Joi.string()
@@ -128,7 +137,10 @@ export const ValidateAdminReg = (data: ValidateAdminRegProps) => {
     phoneNumber: Joi.string().required(),
     email: Joi.string()
       .required()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com"] } })
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net", "uk", "co", "io"] },
+      })
       .max(80),
     password: Joi.string().required(),
   });

@@ -32,13 +32,45 @@ const userSchema = new Schema<UserSchemaProps>({
     type: String,
     required: true,
   },
-  coachProfile: {
-    type: Schema.Types.ObjectId,
-    ref: "coachProfile",
+  coachPersonalData: {
+    dob: String,
+    videoLink: String,
+    nationality: String,
+    language: String,
+    formerTeam: String,
+    currentTeam: String,
+    keyArchievements: String,
+    currentCity: String,
+    licenses: {
+      publicId: String,
+      url: String,
+    },
+    dipolma: {
+      publicId: String,
+      url: String,
+    },
+    otherTraining: {
+      publicId: String,
+      url: String,
+    },
   },
-  footballerProfile: {
-    type: Schema.Types.ObjectId,
-    ref: "footballerProfile",
+  footballerPersonalData: {
+    dob: String,
+    videoLink: String,
+    nationality: String,
+    language: String,
+    height: String,
+    weight: String,
+    bestPosition: String,
+    foot: String,
+    shortBiography: String,
+    currentCity: String,
+    linkedinProfileLink: String,
+    instagramProfileLink: String,
+    twitterProfileLink: String,
+    previousClub: String,
+    clubJoined: String,
+    contractExpired: String,
   },
 });
 
