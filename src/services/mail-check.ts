@@ -4,11 +4,7 @@ interface VetProp {
   success: boolean;
 }
 
-export const mailCheckService = async ({
-  email,
-}: {
-  email: string;
-}): Promise<VetProp> => {
+export const mailCheckService = async ({ email }: { email: string }) => {
   try {
     const isRegistered = await UserModel.findOne({ email });
     if (isRegistered) {

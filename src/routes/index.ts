@@ -5,6 +5,7 @@ import authFootballer from "./auth/footballer";
 import cloudinaryFile from "./cloudinary";
 import { adminRoutes } from "./admin";
 import { coachRoutes } from "./coach";
+import { productRoutes } from "./products";
 import { footballerRoutes } from "./footballer";
 
 const appRouter: Application = express();
@@ -14,10 +15,15 @@ appRouter.use("/auth/footballer", authFootballer);
 appRouter.use("/auth/coach", authCoach);
 appRouter.use("/auth/admin", authAdmin);
 
+// Users routes
 appRouter.use("/footballer", footballerRoutes);
 appRouter.use("/coach", coachRoutes);
 appRouter.use("/admin", adminRoutes);
 
+// Product route
+appRouter.use("/product", productRoutes);
+
+// Cloudinary routes
 appRouter.use(cloudinaryFile);
 
 export default appRouter;
