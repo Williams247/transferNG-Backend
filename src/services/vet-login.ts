@@ -4,7 +4,7 @@ import { LoginParams, ValidateLogin, UserLoginPayload } from "../utils";
 
 import bcrypt from "bcryptjs";
 
-export const handleVetLogin = async ({ email, password }: LoginParams) => {
+export const vetAndLogin = async ({ email, password }: LoginParams) => {
   try {
     const validateAdminLogin = ValidateLogin({ email, password });
     if (validateAdminLogin.error) {

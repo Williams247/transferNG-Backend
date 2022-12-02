@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { LoginVetEmailServiceResponse } from "../../../utils";
-import { handleVetLogin } from "../../../services";
+import { vetAndLogin } from "../../../services";
 
 export const handleLoginCoach = async (
   request: Request,
@@ -9,9 +9,7 @@ export const handleLoginCoach = async (
   try {
     const { body } = request;
 
-    const dataResponse: LoginVetEmailServiceResponse = await handleVetLogin(
-      body
-    );
+    const dataResponse: LoginVetEmailServiceResponse = await vetAndLogin(body);
 
     const { isSuccess, error, status, result, message } = dataResponse;
     if (!isSuccess) {

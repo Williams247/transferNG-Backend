@@ -6,7 +6,7 @@ interface Props {
   pagination: PaginationProps;
 }
 
-export const handleFindUsers = async ({ role, pagination }: Props) => {
+export const fetchUsers = async ({ role, pagination }: Props) => {
   try {
     const { limit, page } = pagination;
     const users = await UserModel.find({ role })
