@@ -1,5 +1,20 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import { ProductModel } from "../models";
+
+export const handleGetProduct = async (
+  request: Request,
+  response: Response
+) => {
+  try {
+    const {
+      params: { id },
+    } = request;
+    const product = await ProductModel.findById(id);
+    response.status(200).json({ message: "Product Fetched", result: product });
+  } catch (error) {
+    response.status(500).json({ error: "Failed to get product" });
+  }
+};
 
 export const handleGetProducts = async (
   request: Request,
