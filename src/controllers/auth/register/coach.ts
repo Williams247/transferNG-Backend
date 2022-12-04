@@ -57,15 +57,12 @@ export const handleRegisterCoach = async (
         nationality: body.nationality,
         currentCity: body.currentCity,
         licenses: {
-          publicId: body.licenses.publicId,
           url: body.licenses.url,
         },
         dipolma: {
-          publicId: body.dipolma.publicId,
           url: body.dipolma.url,
         },
         otherTraining: {
-          publicId: body.otherTraining.publicId,
           url: body.otherTraining.url,
         },
       },

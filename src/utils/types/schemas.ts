@@ -1,7 +1,6 @@
 import { AdminProps } from "./common";
 
 interface DataUrl {
-  publicId: string;
   url: string;
 }
 

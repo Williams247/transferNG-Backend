@@ -8,7 +8,7 @@ This command installs all the dependecies needed for the application to run.
 
 This command runs the application in production mode.
 
-## yarn run dev
+## yarn dev
 
 This command runs the application in development mode
 
