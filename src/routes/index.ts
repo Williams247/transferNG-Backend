@@ -7,6 +7,7 @@ import { adminRoutes } from "./admin";
 import { coachRoutes } from "./coach";
 import { productRoutes } from "./products";
 import { footballerRoutes } from "./footballer";
+import { userRoute } from "./user";
 
 const appRouter: Application = express();
 
@@ -19,6 +20,7 @@ appRouter.use("/auth/admin", authAdmin);
 appRouter.use("/footballer", footballerRoutes);
 appRouter.use("/coach", coachRoutes);
 appRouter.use("/admin", adminRoutes);
+appRouter.use("/user", userRoute);
 
 // Product route
 appRouter.use("/product", productRoutes);
