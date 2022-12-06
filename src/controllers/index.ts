@@ -4,4 +4,4 @@ export * from "./cloudinary";
 export * from "./coach";
 export * from "./footballer";
 export * from "./get-product";
-export * from "./search-user";
+export * from "./users";

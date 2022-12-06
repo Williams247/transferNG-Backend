@@ -1,9 +1,9 @@
-import express, { Router } from "express";
-import { handleSeachUser, handleGetUserById } from "../controllers";
+import express from "express";
+import { handleFetchUser, handleFetchUsers } from "../controllers";
 
-const router: Router = express.Router();
+const router = express.Router();
 
-router.get("/search", handleSeachUser);
-router.get("/get-user/:id", handleGetUserById);
+router.get("/find-users", handleFetchUsers);
+router.get("/profile", handleFetchUser);
 
 export const userRoute = router;

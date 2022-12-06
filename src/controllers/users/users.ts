@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { fetchUsers, fetchProfile } from "../../../services";
+import { fetchUsers, fetchUser } from "../../services";
 
 export const handleFetchUsers = async (
   request: Request,
@@ -7,16 +7,11 @@ export const handleFetchUsers = async (
 ) => {
   try {
     const {
-      query: { role, limit = 10, page = 1 },
+      query: { role, firstname, surname, email, page = 1, limit = 10 },
     } = request;
 
     const pageValue = Number(page);
     const limitValue = Number(limit);
-
-    if (!role) {
-      response.status(401).json({ error: "Provide a role" });
-      return;
-    }
 
     if (pageValue < 1) {
       response
@@ -27,7 +22,10 @@ export const handleFetchUsers = async (
 
     const res = await fetchUsers({
       role: role as string,
-      pagination: { limit: pageValue, page: limitValue },
+      firstname: firstname as string,
+      surname: surname as string,
+      email: email as string,
+      pagination: { page: pageValue, limit: limitValue },
     });
 
     response.status(200).json({ message: "Success", ...res });
@@ -36,10 +34,10 @@ export const handleFetchUsers = async (
   }
 };
 
-export const handleFindUser = async (request: Request, response: Response) => {
+export const handleFetchUser = async (request: Request, response: Response) => {
   try {
     const {
-      query: { id, userType },
+      query: { id },
     } = request;
 
     if (!id) {
@@ -47,8 +45,7 @@ export const handleFindUser = async (request: Request, response: Response) => {
       return;
     }
 
-    const user = await fetchProfile({
-      userType: userType as string,
+    const user = await fetchUser({
       id: id as string,
     });
 
