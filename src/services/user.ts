@@ -6,6 +6,7 @@ interface Props {
   surname?: string;
   email?: string;
   role: string;
+  phoneNumber?: string;
   pagination: PaginationProps;
 }
 
@@ -25,6 +26,7 @@ export const fetchUsers = async ({
   surname,
   email,
   role,
+  phoneNumber,
   pagination,
 }: Props) => {
   try {
@@ -37,6 +39,7 @@ export const fetchUsers = async ({
       ...(surname && { surname }),
       ...(email && { email }),
       ...(role && { role }),
+      ...(phoneNumber && { phoneNumber }),
     };
 
     const users = (await UserModel.find({ ...searchQueries })

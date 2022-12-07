@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bycript from "bcryptjs";
 import { UserModel } from "../../../models";
-import { mailCheckService } from "../../../services";
+import { mailCheckService, phoneNumberCheckService } from "../../../services";
 import { ResponseProps, handleVetAgeRange } from "../../../utils";
 import { validateFootballerReg } from "../../../utils";
 
@@ -23,6 +23,15 @@ export const handleRegisterPlayer = async (
     const vetResponse = await mailCheckService({ email: body.email });
     if (!vetResponse.success) {
       response.status(409).json({ error: "Email taken" });
+      return;
+    }
+
+    const vetPhoneNumber = await phoneNumberCheckService({
+      phoneNumber: body.phoneNumber,
+    });
+
+    if (!vetPhoneNumber.success) {
+      response.status(409).json({ error: "Phone number taken" });
       return;
     }
 

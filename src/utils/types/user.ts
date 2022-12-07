@@ -4,6 +4,7 @@ export interface UserProfile {
   surname: string;
   email: string;
   role: string;
+  phoneNumber: string;
 }
 
 interface LoggedInUser {
@@ -12,6 +13,7 @@ interface LoggedInUser {
   surname?: string;
   email?: string;
   role?: string;
+  phoneNumber?: string;
 }
 
 export interface UserLoginPayload {
@@ -19,6 +21,7 @@ export interface UserLoginPayload {
   firstname?: string;
   surname?: string;
   email?: string;
+  phoneNumber?: string;
   role?: string;
   user?: LoggedInUser;
   token?: string;

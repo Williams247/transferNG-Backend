@@ -102,14 +102,14 @@ export const ValidateCoachReg = (data: ValidateCoachRegProps) => {
           .required()
           .error(new Error("Licenses Certificate url is required")),
       }),
-    dipolma: Joi.object()
+    diploma: Joi.object()
       .required()
       .min(2)
       .max(2)
       .keys({
         publicId: Joi.string()
           .required()
-          .error(new Error("Dipolma Certificate id is required")),
+          .error(new Error("diploma Certificate id is required")),
         url: Joi.string()
           .required()
           .error(new Error("Diploma Certificate url is required")),

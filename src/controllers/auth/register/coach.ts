@@ -3,7 +3,7 @@ import bycript from "bcryptjs";
 import { ValidateCoachReg } from "../../../utils";
 import { ResponseProps, handleVetAgeRange } from "../../../utils";
 import { UserModel } from "../../../models";
-import { mailCheckService } from "../../../services";
+import { mailCheckService, phoneNumberCheckService } from "../../../services";
 
 export const handleRegisterCoach = async (
   request: Request,
@@ -23,6 +23,15 @@ export const handleRegisterCoach = async (
     const vetResponse = await mailCheckService({ email: body.email });
     if (!vetResponse.success) {
       response.status(409).json({ error: "Email taken" });
+      return;
+    }
+
+    const vetPhoneNumber = await phoneNumberCheckService({
+      phoneNumber: body.phoneNumber,
+    });
+
+    if (!vetPhoneNumber.success) {
+      response.status(409).json({ error: "Phone number taken" });
       return;
     }
 
@@ -57,12 +66,15 @@ export const handleRegisterCoach = async (
         nationality: body.nationality,
         currentCity: body.currentCity,
         licenses: {
+          publicId: body.licenses.publicId,
           url: body.licenses.url,
         },
-        dipolma: {
-          url: body.dipolma.url,
+        diploma: {
+          publicId: body.diploma.publicId,
+          url: body.diploma.url,
         },
         otherTraining: {
+          publicId: body.otherTraining.publicId,
           url: body.otherTraining.url,
         },
       },

@@ -1,6 +1,7 @@
 import { AdminProps } from "./common";
 
 interface DataUrl {
+  publicId: string;
   url: string;
 }
 
@@ -36,7 +37,7 @@ export interface CoachSchemaProps {
   keyArchievements: string;
   currentCity: string;
   licenses: DataUrl;
-  dipolma: DataUrl;
+  diploma: DataUrl;
   otherTraining: DataUrl;
 }
 

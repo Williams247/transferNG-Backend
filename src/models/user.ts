@@ -42,12 +42,15 @@ const userSchema = new Schema<UserSchemaProps>({
     keyArchievements: String,
     currentCity: String,
     licenses: {
+      publicId: String,
       url: String,
     },
-    dipolma: {
+    diploma: {
+      publicId: String,
       url: String,
     },
     otherTraining: {
+      publicId: String,
       url: String,
     },
   },

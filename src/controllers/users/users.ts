@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { fetchUsers, fetchUser } from "../../services";
+import { UserProfile } from "../../utils";
 
 export const handleFetchUsers = async (
   request: Request,
@@ -7,7 +8,15 @@ export const handleFetchUsers = async (
 ) => {
   try {
     const {
-      query: { role, firstname, surname, email, page = 1, limit = 10 },
+      query: {
+        role,
+        firstname,
+        surname,
+        email,
+        phoneNumber,
+        page = 1,
+        limit = 10,
+      },
     } = request;
 
     const pageValue = Number(page);
@@ -20,11 +29,16 @@ export const handleFetchUsers = async (
       return;
     }
 
+    const searchProps = {
+      role,
+      firstname,
+      surname,
+      email,
+      phoneNumber,
+    } as UserProfile;
+
     const res = await fetchUsers({
-      role: role as string,
-      firstname: firstname as string,
-      surname: surname as string,
-      email: email as string,
+      ...searchProps,
       pagination: { page: pageValue, limit: limitValue },
     });
 

@@ -43,6 +43,7 @@ export const vetAndLogin = async ({ email, password }: LoginParams) => {
       surname: user.surname,
       email: user.email,
       role: user.role,
+      phoneNumber: user.phoneNumber,
     };
 
     const token: string = await JWT.sign(
